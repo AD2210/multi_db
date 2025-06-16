@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Main\User;
 use App\Form\RegistrationForm;
+use App\Service\TenantDatabaseManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +16,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class SecurityController extends AbstractController
 {
     #[Route('/register', name: 'app_register')]
-    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
+    public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, TenantDatabaseManager $tenantDatabaseManager): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationForm::class, $user);
@@ -30,6 +31,9 @@ class SecurityController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
+
+            // initialize the tenant database
+            $tenantDatabaseManager->initializeTenantDatabase($user);
 
             // do anything else you need here, like send an email
 
