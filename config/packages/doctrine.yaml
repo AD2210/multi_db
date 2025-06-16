@@ -1,8 +1,8 @@
 doctrine:
     dbal:
-        default_connection: main
+        default_connection: default
         connections:
-            main:
+            default:
                 url: '%env(resolve:DATABASE_URL)%'
             tenant:
                 url: '%env(resolve:TENANT_DATABASE_URL)%'
@@ -11,13 +11,11 @@ doctrine:
         # either here or in the DATABASE_URL env var (see .env file)
         #server_version: '16'
 
-        profiling_collect_backtrace: '%kernel.debug%'
-        use_savepoints: true
     orm:
-        default_entity_manager: main
+        default_entity_manager: default
         entity_managers:
-            main:
-                connection: main
+            default:
+                connection: default
                 mappings:
                     App:
                         is_bundle: false
