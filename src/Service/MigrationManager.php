@@ -70,6 +70,6 @@ class MigrationManager
 
     public function getAvailableEntityManagers(): array
     {
-        return ['main', 'tenant'];
+        return ['default', 'tenant'];
     }
 }
