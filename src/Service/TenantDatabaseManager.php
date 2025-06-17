@@ -28,6 +28,21 @@ class TenantDatabaseManager
 
         $this->migrateDatabase();
     }
+    public function switchTenantConnection(User $user): void
+    {
+        // Fermer la connexion existante du tenant si ouverte
+        $this->tenantDbName = 'tenant_' . $user->getId();
+        $tenantConnection = $this->getTenantConnection();
+        if ($tenantConnection->isConnected()) {
+            $tenantConnection->close();
+        }
+
+        // Remplacer la connexion "tenant" existante dans le container
+        $this->doctrine->getConnection('tenant')->close();
+        $this->doctrine->getManager('tenant')->clear();
+
+        $this->doctrine->resetManager('tenant');
+    }
 
     private function createDatabase(): void
     {
