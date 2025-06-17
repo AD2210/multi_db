@@ -16,8 +16,9 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $price = null;
 
     public function getId(): ?int
     {
@@ -36,14 +37,14 @@ class Product
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getPrice(): ?int
     {
-        return $this->createdAt;
+        return $this->price;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setPrice(?int $price): static
     {
-        $this->createdAt = $createdAt;
+        $this->price = $price;
 
         return $this;
     }

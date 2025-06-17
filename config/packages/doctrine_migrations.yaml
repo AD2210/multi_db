@@ -1,8 +1,8 @@
 doctrine_migrations:
+    em: default
     migrations_paths:
         # namespace is arbitrary but should be different from App\Migrations
         # as migrations classes should NOT be autoloaded
-        'DoctrineMigrations\Main': '%kernel.project_dir%/migrations/main'
-        'DoctrineMigrations\Tenant': '%kernel.project_dir%/migrations/tenant'
-    enable_profiler: false
-    em: default
+        'DoctrineMigrations\Main': '%kernel.project_dir%\migrations\main'
+        'DoctrineMigrations\Tenant': '%kernel.project_dir%\migrations\tenant'
+    
